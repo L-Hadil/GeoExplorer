@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="earth_blue">#1E3A5F</color>
+    <color name="sky_blue">#4A90E2</color>
+    <color name="forest_green">#2E7D32</color>
+    <color name="sand_beige">#D2B48C</color>
+    <color name="dark_brown">#5D4037</color>
+    <color name="cloud_white">#F5F5F5</color>
+    <color name="black">#000000</color>
+</resources>
