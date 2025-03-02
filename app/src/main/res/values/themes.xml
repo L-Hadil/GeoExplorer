@@ -2,8 +2,8 @@
     <!-- Base application theme (Mode Jour). -->
     <style name="Theme.GeoExplorer" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color (Bleu océan) -->
-        <item name="colorPrimary">@color/earth_blue</item>
-        <item name="colorPrimaryVariant">@color/sky_blue</item>
+        <item name="colorPrimary">@color/sand_beige</item>
+        <item name="colorPrimaryVariant">@color/earth_blue</item>
         <item name="colorOnPrimary">@color/cloud_white</item>
 
         <!-- Secondary brand color (Vert nature) -->
@@ -20,6 +20,6 @@
         <item name="colorOnSurface">@color/black</item>
 
         <!-- Navigation bar -->
-        <item name="android:navigationBarColor">@color/earth_blue</item>
+        <item name="android:navigationBarColor">@color/sand_beige</item>
     </style>
 </resources>
