@@ -1,9 +1,11 @@
 package com.example.geoexplorer.activity_version
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.geoexplorer.BuildConfig
 import com.example.geoexplorer.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -11,8 +13,6 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-
-
 
 class CountryDetailActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -24,6 +24,8 @@ class CountryDetailActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_country_detail)
+
+        Log.d("MAPS_API_KEY", "Clé API utilisée: ${BuildConfig.MAPS_API_KEY}")
 
         // Récupérer les données passées via Intent
         countryName = intent.getStringExtra("countryName") ?: "Inconnu"
@@ -48,13 +50,25 @@ class CountryDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         findViewById<TextView>(R.id.country_language).text = "Langue : $language"
         findViewById<TextView>(R.id.country_currency).text = "Monnaie : $currency"
 
-        // Initialisation de la carte
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
-        mapFragment.getMapAsync(this)
+        // Vérifier si la carte est bien intégrée
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.mapFragment) as? SupportMapFragment
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this)
+        } else {
+            Log.e("GoogleMaps", "Erreur: Impossible de charger SupportMapFragment")
+        }
     }
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
+
+        if (latitude == 0.0 && longitude == 0.0) {
+            Log.e("GoogleMaps", "Coordonnées invalides: latitude = $latitude, longitude = $longitude")
+            return
+        }
+
+        Log.d("GoogleMaps", "Carte prête: Latitude = $latitude, Longitude = $longitude")
+
         val countryLocation = LatLng(latitude, longitude)
         googleMap.addMarker(MarkerOptions().position(countryLocation).title(countryName))
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(countryLocation, 5f))

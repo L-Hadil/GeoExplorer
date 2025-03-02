@@ -1,6 +1,16 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+}
+
+// ✅ Charger les `local.properties`
+val localProperties = rootProject.file("local.properties")
+val mapsApiKey = if (localProperties.exists()) {
+    Properties().apply { load(localProperties.inputStream()) }.getProperty("MAPS_API_KEY", "")
+} else {
+    ""
 }
 
 android {
@@ -14,12 +24,16 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        // ✅ Injecter la clé API dans AndroidManifest.xml
+        manifestPlaceholders["MAPS_API_KEY"] = mapsApiKey
+
+        // ✅ Générer la constante `BuildConfig.MAPS_API_KEY`
+        buildConfigField("String", "MAPS_API_KEY", "\"$mapsApiKey\"")
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-
-        buildConfigField("String", "MAPS_API_KEY", "\"${project.findProperty("MAPS_API_KEY") ?: ""}\"")
-
     }
+
+
     buildFeatures {
         buildConfig = true
     }
@@ -33,17 +47,18 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
