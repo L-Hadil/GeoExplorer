@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
 }
 
-// ✅ Charger les `local.properties`
+
 val localProperties = rootProject.file("local.properties")
 val mapsApiKey = if (localProperties.exists()) {
     Properties().apply { load(localProperties.inputStream()) }.getProperty("MAPS_API_KEY", "")
@@ -24,10 +24,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        // ✅ Injecter la clé API dans AndroidManifest.xml
         manifestPlaceholders["MAPS_API_KEY"] = mapsApiKey
-
-        // ✅ Générer la constante `BuildConfig.MAPS_API_KEY`
         buildConfigField("String", "MAPS_API_KEY", "\"$mapsApiKey\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
