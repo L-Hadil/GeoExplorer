@@ -40,7 +40,6 @@ class CountryDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         val language = intent.getStringExtra("language") ?: "Non disponible"
         val currency = intent.getStringExtra("currency") ?: "Non disponible"
 
-        // Mise à jour des vues
         findViewById<ImageView>(R.id.country_detail_flag).setImageResource(flagResId)
         findViewById<TextView>(R.id.country_detail_name).text = countryName
         findViewById<TextView>(R.id.country_capital).text = "Capitale : $capital"
@@ -50,7 +49,6 @@ class CountryDetailActivity : AppCompatActivity(), OnMapReadyCallback {
         findViewById<TextView>(R.id.country_language).text = "Langue : $language"
         findViewById<TextView>(R.id.country_currency).text = "Monnaie : $currency"
 
-        // Vérifier si la carte est bien intégrée
         val mapFragment = supportFragmentManager.findFragmentById(R.id.mapFragment) as? SupportMapFragment
         if (mapFragment != null) {
             mapFragment.getMapAsync(this)

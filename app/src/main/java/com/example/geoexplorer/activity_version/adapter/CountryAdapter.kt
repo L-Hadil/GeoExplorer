@@ -31,7 +31,6 @@ class CountryAdapter(
         holder.countryName.text = country.name
         holder.countryFlag.setImageResource(country.flagResId)
 
-        // ✅ Ajout d'un effet de clic avec animation
         holder.itemView.setOnClickListener {
             it.alpha = 0.6f
             it.postDelayed({ it.alpha = 1f }, 200)

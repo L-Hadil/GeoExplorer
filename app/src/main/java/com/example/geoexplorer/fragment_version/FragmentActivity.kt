@@ -21,7 +21,7 @@ class FragmentActivity : AppCompatActivity() {
         }
     }
 
-    fun showCountryDetails(country: Country) {  // ✅ Corrigé
+    fun showCountryDetails(country: Country) {
         val fragment = FragmentCountryDetail.newInstance(country)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
